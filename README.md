@@ -31,6 +31,9 @@ This repository contains the source code for a **Virtual Assistant** in Python, 
 2. **Spotify Setup:**
    - Set up your Spotify API credentials in the configuration file.
       - https://developer.spotify.com/documentation/web-api
+3. **Gemini AI Setup**
+   - Set up your Gemini AI API credentials in the configuration file.
+     - https://ai.google.dev/gemini-api/docs/api-key
     
 3. **Running the Assistant:**
    - Start the assistant by running the main script:
