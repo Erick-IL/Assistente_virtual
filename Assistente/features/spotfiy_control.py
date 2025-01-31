@@ -5,8 +5,6 @@ from Assistente.core.tts import TTS
 import spotipy
 import os
 
-
-# abrir playlists privadas 
 # recomendar uma playlist com base nas ultimas musicas
 
 class SpotifyController:
@@ -38,6 +36,7 @@ class SpotifyController:
 
     def _extract_single_music_info(self, info: dict) -> dict:
         """Extract music information from json response. (single)"""
+
         artists = [artist['name'] for artist in info['item']['album']['artists']]
         return {
             "artist": artists,
@@ -51,6 +50,7 @@ class SpotifyController:
 
     def _extract_multiple_music_info(self, info: dict, index: int) -> dict:
         """Extract music information from json response. (multiple)"""
+
         artists = [artist['name'] for artist in info['tracks']['items'][index]['artists']]
         return {
             "artist": artists,
@@ -64,6 +64,7 @@ class SpotifyController:
 
     def control_playback(self, text: str):
         """Control playback of Spotify music. (play, pause, next, previous)""" 
+
         if 'pausar' in text or 'parar' in text or 'pause' in text:
             self._pause_playback()
         elif 'continuar' in text or 'play' in text or 'retomar' in text:
@@ -103,6 +104,7 @@ class SpotifyController:
 
     def _handle_playback_error(self, error: Exception):
         """Handle error during playback."""
+
         if hasattr(error, 'http_status') and error.http_status == 403:
             print("Erro HTTP 403: Ação não permitida.")
         else:
@@ -110,6 +112,7 @@ class SpotifyController:
 
     def repeat(self, text: str):
         """Control repeat and shuffle of Spotify music."""
+
         if 'repetir' in text and 'musica' in text or 'faixa' in text:
             self._set_repeat('track')
             self.tts.play_tts_audio("Repetindo música")
@@ -143,6 +146,7 @@ class SpotifyController:
 
     def get_info(self, text: str) -> dict:
         """get information about the current music."""
+
         info = None
         if 'musica, atual' in text or 'informação' in text or 'informações' in text:
             info = self.search_info(self.sp.current_playback(), 'single')
@@ -158,6 +162,7 @@ class SpotifyController:
 
     def search_music(self, text: str):
         """Search 5 songs based on user input"""
+
         if 'procurar' in text or 'buscar' in text:
             query = text.replace('procurar', '').replace('buscar', '').replace('musica', '').strip()
             print('procurando: ' + query)
@@ -166,6 +171,7 @@ class SpotifyController:
 
     def _search_and_play(self, query: str): 
         """informs 5 songs and question for the user for play or not."""
+
         search_results = self.sp.search(query, limit=5)
         for i in range(5):   
             music_info = self.search_info(search_results, 'multiple', index=i)
@@ -184,6 +190,7 @@ class SpotifyController:
     
     def play_private_playlist(self, user_input: str):
         """Search and play private playlist """
+
         if 'playlist' in user_input:
             user_input = user_input.replace('playlist', '').strip()
             print('procurando playlist')
@@ -199,6 +206,7 @@ class SpotifyController:
 
     def volume(self, user_input: str):
         """Set volume of Spotify music."""
+
         if 'aumentar' in user_input and 'volume' in user_input:
             volume = self.sp.devices()['devices'][0]['volume_percent'] + 10
             self.sp.volume(volume)
@@ -222,6 +230,7 @@ class SpotifyController:
 
     def treat_cmd(self, text: str):
         """Processa os comandos de controle de reprodução e busca de músicas."""
+
         text = text.lower()
         self.repeat(text)
         self.get_info(text)

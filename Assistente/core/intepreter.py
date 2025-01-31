@@ -42,4 +42,4 @@ class Ia_Intepreter():
     
 if __name__ == '__main__':
     ia = Ia_Intepreter()
-    print(ia.resume_and_classify_input('informações da musica'))
+    print(ia.resume_and_classify_input('Jeep CIC a nova Inteligência Artificial da China'))
