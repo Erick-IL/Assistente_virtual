@@ -38,7 +38,7 @@ This repository contains the source code for a **Virtual Assistant** in Python, 
 3. **Running the Assistant:**
    - Start the assistant by running the main script:
      ```bash
-     python virtual_assistant.py
+     python main.py
      ```
    - The assistant will begin listening to voice commands and respond either through voice or text.
 
